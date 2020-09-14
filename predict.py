@@ -46,7 +46,12 @@ def predict(image_path, model, top_k):
     
     top_k_values = top_k_values.numpy()
     top_k_indices = top_k_indices.numpy()
-    return top_k_values, top_k_indices
+    flower_classes = []
+    for idx in top_k_indices[0]:
+        flower_classes.append(class_names[str(idx+1)])
+    return top_k_values, top_k_indices, flower_classes
 
-probs, classes = predict(image_path, reloaded, top_k)
-print(probs, classes)
+probs, classes, flowers = predict(image_path, reloaded, top_k)
+print("Possibility: ",probs)
+print("Class: ",classes)
+print("Flower: ",flowers)
